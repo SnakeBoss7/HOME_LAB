@@ -46,12 +46,23 @@ index = sysmon
 sourcetype = Sysmon:Operational
 # Defines the sourcetype for data parsing in Splunk.
 ```
+
+### Step 2: Restart splunkForwarderestart 
 then restart splunkForwarder and remeber to give preivelage to splunk by going to win+r -> services.msc
 
 * ** imp commads **
+```bash
+# Check service status
+Get-Service SplunkForwarder
 
-* `net stop serviceName`
+# Stop UF
+net stop SplunkForwarder
 
-* `net start serviceName`
+# Start UF
+net start SplunkForwarder
+```
 
-* `get-service serviceName`
+### Verify Forwarding is Working
+**to se the connected logs of splunk universal forwader + sysmon (Usefull for UF errors)** 
+
+C:\Program Files\SplunkUniversalForwarder\var\log\splunk\splunkd
