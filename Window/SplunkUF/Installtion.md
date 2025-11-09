@@ -66,3 +66,8 @@ net start SplunkForwarder
 **to se the connected logs of splunk universal forwader + sysmon (Usefull for UF errors)** 
 
 C:\Program Files\SplunkUniversalForwarder\var\log\splunk\splunkd
+
+---
+
+* splunkd 
+    * The core component responsible for data collection, indexing, and correlation is called splunkd, which is a background daemon process
