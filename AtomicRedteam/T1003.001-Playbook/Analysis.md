@@ -61,6 +61,15 @@ These are the **only four hex access values you actually need to remember** when
 
 ---
 
+## ✅ 0x1000  
+### **Meaning:**  
+`only allows querying basic process information, not reading memory or extracting credentials`
+
+### **Used By (Tools Detected):**  
+- CompatelRunner.exe
+- services.exe
+---
+
 ## ✅ 0x1010  
 ### **Meaning:**  
 `PROCESS_QUERY_LIMITED_INFO` + `PROCESS_VM_READ`

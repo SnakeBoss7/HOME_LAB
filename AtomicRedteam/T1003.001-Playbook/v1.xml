@@ -58,26 +58,43 @@
     <!-- DETECTION: LSASS Memory Access              -->
     <!-- ============================================ -->
     <RuleGroup name="T1003.001_LSASS_Access" groupRelation="or">
-      
-      <ProcessAccess onmatch="include">
-        <TargetImage condition="end with">lsass.exe</TargetImage>
-      </ProcessAccess>
-      
-      <ProcessAccess onmatch="exclude">
-        <SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
+  
+  <!-- Include: All LSASS access -->
+  <ProcessAccess onmatch="include">
+    <TargetImage condition="end with">lsass.exe</TargetImage>
+  </ProcessAccess>
 
-        <SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
-
-        <SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
-
-        <SourceImage condition="contains">\Windows Defender\</SourceImage>
-
-        <SourceImage condition="contains">MsMpEng.exe</SourceImage>
-
-        <SourceImage condition="contains">\Microsoft\EdgeUpdate\</SourceImage>
-      </ProcessAccess>
-      
-    </RuleGroup>
+  <!-- Exclude: Low privilege query-only access -->
+  <ProcessAccess onmatch="exclude">
+    <GrantedAccess condition="is any">0x1000;0x40;0x1400</GrantedAccess>
+  </ProcessAccess>
+  
+  <!-- Exclude: Core Windows system processes -->
+  <ProcessAccess onmatch="exclude">
+    <SourceImage condition="is any">
+      C:\Windows\System32\svchost.exe;
+      C:\Windows\System32\wininit.exe;
+      C:\Windows\System32\csrss.exe;
+      C:\Windows\System32\services.exe;
+      C:\Windows\System32\CompatTelRunner.exe
+    </SourceImage>
+  </ProcessAccess>
+  
+  <!-- Exclude: Windows Defender -->
+  <ProcessAccess onmatch="exclude">
+    <SourceImage condition="contains">\Windows Defender\</SourceImage>
+  </ProcessAccess>
+  
+  <ProcessAccess onmatch="exclude">
+    <SourceImage condition="contains">MsMpEng.exe</SourceImage>
+  </ProcessAccess>
+  
+  <!-- Exclude: Microsoft Edge Update -->
+  <ProcessAccess onmatch="exclude">
+    <SourceImage condition="contains">\Microsoft\EdgeUpdate\</SourceImage>
+  </ProcessAccess>
+  
+</RuleGroup>
 
     <!-- ============================================ -->
     <!-- DETECTION: Dump File Creation               -->
@@ -86,8 +103,6 @@
       
       <!-- PowerShell creating .dmp -->
       <FileCreate onmatch="include">
-
-        
         <TargetFilename condition="end with">.dmp</TargetFilename>
 
       </FileCreate>
