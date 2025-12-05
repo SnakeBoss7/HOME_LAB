@@ -19,9 +19,10 @@ PROJECT_KEY = 'SOC'
 
 # Ai configuration
 invoke_url = "https://integrate.api.nvidia.com/v1/chat/completions"
+nv_api=os.getenv('NV_API');
 stream = False
 headers = {
-  "Authorization": "Bearer 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",
+  "Authorization": "Bearer "+nv_api,
   "Accept": "text/event-stream" if stream else "application/json"
 }
 
