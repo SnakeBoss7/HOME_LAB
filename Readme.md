@@ -45,12 +45,6 @@ graph TD
     end
 ```
 
-```Mermaid
-graph TD
-    A[Windows 10 Endpoint] -->|Sysmon Events| B[Splunk Universal Forwarder]
-    B -->|Forwards Logs| C[Splunk Indexer]
-    C -->|Search + Validate| D[Initial SPL Queries / Dashboards]
-```
 ## System Architecture & Components
 
 ### 1. Telemetry & Detection (Sysmon + Splunk)
@@ -59,7 +53,7 @@ The foundation of the project is robust telemetry and detection.
     *   [Installation Guide](Window/Sysmon/Insatallion.md)
 *   **Splunk**: Acts as the SIEM, ingesting logs via Universal Forwarder (UF), running SPL queries, and hosting dashboards.
     *   [Windows UF Installation](Window/SplunkUF/Installtion.md)
-    *   [Linux Custom Alert](Linux/Splunk/customAlert.md)
+    *   [Splunk Custom Alert](Linux/Splunk/customAlert.md)
 
 ### 2. Python SOAR Mini-Clone
 A custom automation pipeline that processes alerts triggered by Splunk.
@@ -74,8 +68,7 @@ A custom automation pipeline that processes alerts triggered by Splunk.
 6.  **Response**: Automatically creates a Jira ticket with all gathered context.
 
 **Scripts:**
-- [Alert Script](MINI-SOAR-PY/alert_script.py) - Main controller for the SOAR pipeline.
-- [LLM Integration](MINI-SOAR-PY/llm.py) - Module for AI-based formatting and mapping.
+- [Alert Script](SoarWorkflow/soar_flow.py) - Main controller for the SOAR pipeline.
 
 ### 3. Attack Simulation (Atomic Red Team)
 Simulated attacks used to test and validate the detection pipeline.
@@ -90,6 +83,11 @@ Simulated attacks used to test and validate the detection pipeline.
 
 #### T1059 (Command and Scripting Interpreter)
 - [Guide](AtomicRedteam/T1059-Playbook/Guide.md)
+
+
+#### T1110 (Password Spray and Brute force Login)
+- [Attack Execution](/Linux/T1110-Playbook/pre_access.md) 
+- [Guide](/Linux/T1110-Playbook/Setup_AND_security_event_analysis.md) 
 
 ### 4. Integration Guides
 - [Jira Python Connection](Jira/Python_Connection.md)

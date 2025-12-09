@@ -6,8 +6,10 @@
     <!-- DISABLE NOISE -->
     <ProcessTerminate onmatch="exclude"/>
     
+
+    
     <!-- ============================================ -->
-    <!-- DETECTION: Scheduled Task Creation          -->
+    <!-- DETECTION: Scheduled Task Creation           -->
     <!-- ============================================ -->
     <RuleGroup name="T1053.005_ScheduledTaskCreation" groupRelation="or">
 
@@ -44,7 +46,7 @@
     </RuleGroup>
 
     <!-- ============================================ -->
-    <!-- DETECTION: Credential Dumping (T1003.001)   -->
+    <!-- DETECTION: Credential Dumping (T1003.001)    -->
     <!-- ============================================ -->
     <RuleGroup name="T1003.001_ProcessCreation" groupRelation="or">
       
@@ -80,7 +82,7 @@
     </RuleGroup>
 
     <!-- ============================================ -->
-    <!-- DETECTION: Network Activity                 -->
+    <!-- DETECTION: Network Activity                  -->
     <!-- ============================================ -->
     <RuleGroup name="T1003.001_NetworkActivity" groupRelation="or">
       <NetworkConnect onmatch="include">

@@ -11,10 +11,10 @@ load_dotenv()
 # echo '{"result": {"host": "TEST-HOST", "message": "Test Message", "EventCode": "4624", "EventType": "0", "RuleName": "Test Rule", "GrantedAccess": "0x1F3FFF", "_time": "2025-11-30T10:00:00"}}' | python3 MINI-SOAR-PY/alert_script.py
 
 # jira Configuration 
-JIRA_SERVER = 'http://localhost:8080'
-JIRA_USER = 'insaen'
-JIRA_PASS = 'RAHUL12005'
-PROJECT_KEY = 'SOC'
+JIRA_SERVER = os.getenv("JIRA_SERVER")
+JIRA_USER = os.getenv("JIRA_USER")
+JIRA_PASS = os.getenv("JIRA_PASS")
+PROJECT_KEY = os.getenv("PROJECT_KEY")
 
 
 # Ai configuration
@@ -48,11 +48,13 @@ Use this exact schema:
     "summary": "1 sentence executive summary of the event",
     "severity": "CRITICAL",  // Options: CRITICAL, HIGH, MEDIUM, LOW, FALSE_POSITIVE
     "confidence_score": 90,  // Integer 0-100
+    "description":"Full description of the event",
+    "labels": ["Lsass","Credential"] #one word,
     "technical_analysis": {
         "actor": "User or Process Name",
         "action": "What happened",
         "mitre_technique": "T-ID",
-        "flags": ["List", "Of", "Suspicious", "Indicators"]
+    
     },
     "recommended_actions": [
         "Action 1",
@@ -107,13 +109,26 @@ def jira_conn():
         print(f"Error connecting to Jira: {e}")
         sys.exit(1)
 
+def get_epic_key(jira, epic_name):
+    jql = f'issuetype = Epic AND "Epic Name" ~ "{epic_name}"'
+    issues = jira.search_issues(jql)
+
+    if issues:
+        return issues[0].key  # Example: "PROJ-12"
+    return None
 # ticket creation
-def ticket_creation(jira, issue_type):
+def ticket_creation(jira, issue_type,ticket_payload):
     try:
         ticket = jira.create_issue(
-            project=PROJECT_KEY,
-            summary='Test Ticket from Python SOAR',
-            description='This is a test ticket created by the automation script.',
+            project={'key': PROJECT_KEY},
+            summary=ticket_payload['summary'],
+            labels=ticket_payload['labels'],
+            description=str(ticket_payload['description']),
+            customfield_10100="SOC-1",
+            priority={'name': 'High'} if ticket_payload['severity'] in ['CRITICAL', 'HIGH'] else {'name': 'Medium'},
+            customfield_10301=str(ticket_payload['technical_analysis']),
+            customfield_10202=ticket_payload['technical_analysis'].get('mitre_technique', 'Unknown'),
+            customfield_10300=str(ticket_payload['recommended_actions']),
             issuetype={'name': issue_type}
         )
         return ticket
@@ -178,19 +193,22 @@ def main():
     debug_log("jira connection started", "nothing")
     jira = jira_conn()
     debug_log("jira connection success", jira)
-   
+    for field in jira.issue_types():
+        print(field)
     # get payload from stdin
     debug_log("get payload started", "nothing")
     payload = get_payload()
 
+    # ai summary
+    final_res = ai_res(tel_payload=payload)
+    debug_log("Final response ",final_res)
+    
     # enrichment
-    hash = payload['result']['Hashes']
-    virus_total_enrichment(hash)
+    # hash = payload['result']['Hashes']
+    # virus_total_enrichment(hash)
+    # ticket_creation(jira,'Incident',final_res)
     
 
-    # ai summary
-    # final_res = ai_res(tel_payload=payload)
-    # debug_log("Final response ",final_res)
 
     # owner = payload['owner']
     # host = payload['result']['host']

@@ -60,7 +60,7 @@ Invoke-AtomicTest T1003.001 -TestNumbers 8 -Confirm:$false
 
 ## Detection Queries
 
-### 1️⃣ EventCode 10 - Process Access to LSASS
+### 1. EventCode 10 - Process Access to LSASS
 
 ## ALERTS SPl for splunk
 
@@ -76,7 +76,7 @@ index=sysmon sourcetype=Win10 EventCode=10 TargetImage="*lsass.exe"
 | where GrantedAccess IN ("0x1010", "0x1410", "0x1438","0x1FFFFF")
 ```
 
-### 2️⃣ EventCode 11 - Dump File Creation
+### 2. EventCode 11 - Dump File Creation
 **Purpose:** Detect .dmp file creation by suspicious processes
 ```spl
 index=sysmon sourcetype=Win10 EventCode=11 TargetFilename="*.dmp"
@@ -84,7 +84,7 @@ index=sysmon sourcetype=Win10 EventCode=11 TargetFilename="*.dmp"
 | table _time, Image, TargetFilename, User
 ```
 
-### 3️⃣ EventCode 1 - Suspicious Process Execution
+### 3. EventCode 1 - Suspicious Process Execution
 **Purpose:** Detect rundll32 calling comsvcs.dll
 ```spl
 index=sysmon sourcetype=Win10 EventCode=1 Image="*rundll32.exe" CommandLine="*comsvcs.dll*MiniDump*"
@@ -111,3 +111,5 @@ index=sysmon sourcetype=Win10 EventCode=1 Image="*rundll32.exe" CommandLine="*co
 ![execution](Img/T1003.001_3.png)
 ![execution](Img/T1003.001_2.png)
 
+## Jira Ticket Creation
+![jira ticket](./Img/jira.png) 
