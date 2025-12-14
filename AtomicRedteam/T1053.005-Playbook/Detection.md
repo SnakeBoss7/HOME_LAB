@@ -7,7 +7,7 @@
 ##  Execution Steps
 
 ### 1. Scheduled Task via cmd
- Status:  ✅ DETECTED
+ Status:   DETECTED
 This test creates a scheduled task named "AtomicTask" that spawns a command prompt, and this is a persistant scheduled task.
 
 **Command:**
@@ -49,7 +49,7 @@ index=sysmon sourcetype="Win10" EventCode=1 Image=*schtasks*
 
 ### 2. Scheduled Task via PWSH
 This test creates a scheduled task named "AtomicTask" that spawns a command prompt.
-Status: ⚠️ PARTIALLY DETECTED
+Status:  PARTIALLY DETECTED
 **Command:**
 ```powershell
 #atomic
@@ -82,7 +82,7 @@ index=sysmon sourcetype="Win10" EventCode=1 CommandLine="*PS_ScheduledTask*" Com
 
 ### 3. Scheduled Task via WMI(Window Management Instrumentation)
 This test creates a scheduled task named "AtomicTask" that spawns a command prompt.
-Status: ⚠️ PARTIALLY DETECTED
+Status:  PARTIALLY DETECTED
 **Command:**
 ```powershell
 #atomic

@@ -57,19 +57,22 @@ Invoke-AtomicTest T1003.001 -TestNumbers 8 -Confirm:$false
 ## Executions
 ![execution](Img/T1003.001_4.png)
 ![execution](Img/T1003.001_5.png)
-
+        gfhgfhdhghdghgdfjhgmj m,jh                      
 ## Detection Queries
 
 ### 1. EventCode 10 - Process Access to LSASS
 
 ## ALERTS SPl for splunk
 
-**Purpose:** Detect any process attempting to read LSASS memory
+**Purpose:** D
+## ALERTS SPl for splunk
+gsdfgsfdgf  fsdasadfdfadsfdalkl;gkfds'kglfdgklfd;gkl'lkjtehktrjhksjhk+etect any process attempting to read LSASS memory
 ```spl
 index=sysmon sourcetype=Win10 EventCode=10 TargetImage="*lsass.exe"
 | stats count by SourceImage, SourceUser, GrantedAccess
 ```
-**Purpose:** Detect any process with granted access to LSASS memory
+
+**Purpose:** Detect any procefghgfhgfhss with granted access to LSASS memory
 ```spl
 index=sysmon sourcetype=Win10 EventCode=10 TargetImage="*lsass.exe"
 | stats count by SourceImage, SourceUser, GrantedAccess

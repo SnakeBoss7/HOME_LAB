@@ -70,24 +70,32 @@ A custom automation pipeline that processes alerts triggered by Splunk.
 **Scripts:**
 - [Alert Script](SoarWorkflow/soar_flow.py) - Main controller for the SOAR pipeline.
 
-### 3. Attack Simulation (Atomic Red Team)
+### 3. Attack Simulation & Detection (Atomic Red Team)
 Simulated attacks used to test and validate the detection pipeline.
 
-#### T1003.001 (OS Credential Dumping)
-- [Analysis](AtomicRedteam/T1003.001-Playbook/Analysis.md)
-- [Attack Execution](AtomicRedteam/T1003.001-Playbook/Attack-Execution.md)
+#### Windows Attacks
+*   **T1003.001 (OS Credential Dumping)**
+    *   [Analysis](AtomicRedteam/T1003.001-Playbook/Analysis.md)
+    *   [Attack Execution](AtomicRedteam/T1003.001-Playbook/Detection.md)
+*   **T1053.005 (Scheduled Task)**
+    *   [Analysis](AtomicRedteam/T1053.005-Playbook/Analysis.md)
+    *   [Attack Execution](AtomicRedteam/T1053.005-Playbook/Detection.md)
+*   **T1059 (Command and Scripting Interpreter)**
+    *   [Guide](AtomicRedteam/T1059-Playbook/Guide.md)
+*   **T1110 (Password Spray and Brute Force Login)**
+    *   [Guide](/Linux/T1110-Playbook/Setup_AND_security_event_analysis.md)
+    *   [Attack Execution](/Linux/T1110-Playbook/pre_access.md)
 
-#### T1053.005 (Scheduled Task)
-- [Analysis](AtomicRedteam/T1053.005-Playbook/Analysis.md)
-- [Attack Execution](AtomicRedteam/T1053.005-Playbook/Attack-Execution.md)
-
-#### T1059 (Command and Scripting Interpreter)
-- [Guide](AtomicRedteam/T1059-Playbook/Guide.md)
-
-
-#### T1110 (Password Spray and Brute force Login)
-- [Attack Execution](/Linux/T1110-Playbook/pre_access.md) 
-- [Guide](/Linux/T1110-Playbook/Setup_AND_security_event_analysis.md) 
+#### Active Directory Attacks
+*   **T1558.003 (Kerberoasting)**
+    *   [Attack Execution](/AtomicRedteam/AD-ATTACKS/T1558.003-Playbook/Analysis.md)
+    *   [Guide](/AtomicRedteam/AD-ATTACKS/T1558.003-Playbook/Detection.md)
+*   **T1550.002 (Pass the Hash)**
+    *   [Attack Execution](/AtomicRedteam/AD-ATTACKS/T1550.002&003-Playbook/Analysis.md)
+    *   [Guide](/AtomicRedteam/AD-ATTACKS/T1550.002&003-Playbook/Detection.md)
+*   **T1550.003 (Pass the Ticket)**
+    *   [Attack Execution](/AtomicRedteam/AD-ATTACKS/T1550.002&003-Playbook/Analysis.md)
+    *   [Guide](/AtomicRedteam/AD-ATTACKS/T1550.002&003-Playbook/Detection.md)
 
 ### 4. Integration Guides
 - [Jira Python Connection](Jira/Python_Connection.md)
